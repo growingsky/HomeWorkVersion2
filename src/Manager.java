@@ -18,11 +18,11 @@ public class Manager {
         System.out.println("If you want to remove an employee press 3");
         System.out.println("If you want to find an employee press 4");
         System.out.println("For Taskmaster press 5");
-        System.out.println("For exit press 6 ");
+        System.out.println("For exit press 0 ");
 
         Scanner in = new Scanner(System.in);
         userChoice = in.nextInt();
-        while (userChoice != 6) {
+        while (userChoice != 0) {
 
             if (userChoice == 1) {
                 startAddingProcess();

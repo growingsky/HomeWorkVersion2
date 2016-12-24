@@ -7,6 +7,7 @@ import java.util.Scanner;
 public class TaskMaster {
     private Manager manager = new Manager();
     private Scanner scanner;
+    ArrayList<Task> tasks = new ArrayList<>();
 
 
     public void startTaskMaster() {
@@ -25,18 +26,21 @@ public class TaskMaster {
                 break;
 
             case 2:
-                // removeTaks();
-                // break;
+                removeTask();
+                break;
 
             case 3:
-                //showEmployeesTask();
-
+                showEmployeesTask();
+                break;
             case 4:
-                //showAllTasks();
+                showAllTasks(tasks);
+                break;
+
             case 5:
-                // changeTask();
+                changeTask();
             case 6:
                 manager.startInfo();
+                break;
         }
     }
 
@@ -62,15 +66,17 @@ public class TaskMaster {
                 System.out.println("Please give the deadline for the task:    ");
                 task.setTastDeadLine(scanner.nextInt());
                 i.addTask(task);
+                tasks.add(task);
+                startTaskMaster();
 
             } else {
                 System.out.println("There is now employee with such name. Would you like to create an new employee?" +
-                        "Y / N");
+                        "  Y / N");
                 scanner = new Scanner(System.in);
                 String userChoice = scanner.nextLine();
                 if (userChoice.equalsIgnoreCase("Y")) {
-                    Employee employee = new Employee();
-                    manager.addEmployee(employee);
+                    manager.startAddingProcess();
+                    addNewTask();
                 } else {
                     startTaskMaster();
                 }
@@ -81,10 +87,71 @@ public class TaskMaster {
 
     }
 
+    public void removeTask() {
+        scanner = new Scanner(System.in);
+        System.out.println("Please give a name of the task which you would like to remove:   ");
+        String userInput = scanner.nextLine();
+        for (Task t : tasks) {
+            if (userInput.equalsIgnoreCase(t.getTaskName())) {
+                tasks.remove(t);
+                System.out.println("Removed successful");
+            } else {
+                System.out.println("There is no task with name like this");
+                removeTask();
+            }
+        }
+        startTaskMaster();
+
+    }
+
+
+    public void showEmployeesTask() {
+        scanner = new Scanner(System.in);
+        System.out.println("Please give the name of employee:   ");
+        String userInput = scanner.nextLine();
+        for (Employee e : manager.employees) {
+            if (userInput.equalsIgnoreCase(e.getName())) {
+                for (Task t : e.getTasks()) {
+                    System.out.println(t.getTaskName());
+                }
+            } else {
+                System.out.println("There is no task with name like this");
+                removeTask();
+            }
+        }
+    }
+
+
+    public void showAllTasks(ArrayList<Task> tasks) {
+        if (tasks.isEmpty()) {
+            System.out.println("There is no tasks");
+        } else {
+            for (Task t : this.tasks) {
+                System.out.println(t.getTaskName());
+            }
+        }
+    }
+
     public void setManager(Manager manager) {
         this.manager = manager;
     }
+
+    public void changeTask() {
+        scanner = new Scanner(System.in);
+        System.out.println("Please give the name of the task:  ");
+        String userInput = scanner.nextLine();
+        for (Task t : tasks) {
+            if (userInput.equalsIgnoreCase(t.getTaskName())) {
+                System.out.println("You can now change the task: ");
+                System.out.println("Please give the new name for the task:   ");
+                scanner = new Scanner(System.in);
+                userInput = scanner.nextLine();
+                t.setTaskName(userInput);
+                System.out.println("The new name of the Task is " + userInput);
+            }
+        }
+        startTaskMaster();
 }
 
-
+}
 

@@ -7,6 +7,11 @@ public class Employee {
     private String position;
     private int salary;
 
+
+    public ArrayList<Task> getTasks() {
+        return tasks;
+    }
+
     private ArrayList<Task> tasks = new ArrayList<>();
 
     public void setName(String name) {
