@@ -7,6 +7,9 @@ public class Manager {
     private int userChoice;
     private Employee employee;
     ArrayList<Employee> employees = new ArrayList<>();
+    TaskMaster taskMaster;
+
+
 
     public void startInfo() {
         System.out.println("Menü");
@@ -14,11 +17,12 @@ public class Manager {
         System.out.println("If you want to see all employees press 2");
         System.out.println("If you want to remove an employee press 3");
         System.out.println("If you want to find an employee press 4");
-        System.out.println("For exit press 5 ");
+        System.out.println("For Taskmaster press 5");
+        System.out.println("For exit press 6 ");
 
         Scanner in = new Scanner(System.in);
         userChoice = in.nextInt();
-        while (userChoice != 5) {
+        while (userChoice != 6) {
 
             if (userChoice == 1) {
                 startAddingProcess();
@@ -28,7 +32,14 @@ public class Manager {
                 startPrintAllDataProcess();
             } else if (userChoice == 4) {
                 findEmployeeByName();
+            } else if (userChoice == 5) {
+                TaskMaster taskMaster = new TaskMaster();
+                taskMaster.setManager(returnManager());
+                taskMaster.startTaskMaster();
+
             }
+
+
             startInfo();
 
         }
@@ -67,12 +78,10 @@ public class Manager {
 
         if (!employees.isEmpty()) {
 
-
             for (Employee i : employees) {
                 if (name.equalsIgnoreCase(i.getName())) {
                     employees.remove(this);
                     System.out.println("Employee has been removed successfuly ");
-
                 } else {
                     System.out.println("There is no employee with such name");
                 }
@@ -82,13 +91,12 @@ public class Manager {
     }
 
     public void getEmployeesData() {
-        if (!employees.isEmpty()) {
-            for (Employee i : employees) {
-                System.out.println(i.getName());
-                System.out.println(i.getPosition());
-                System.out.println(i.getSalary());
 
-            }
+        for (Employee i : employees) {
+            System.out.println(i.getName());
+            System.out.println(i.getPosition());
+            System.out.println(i.getSalary());
+
         }
     }
 
@@ -108,6 +116,14 @@ public class Manager {
         }
 
 
+    }
+
+    public ArrayList<Employee> getAllEmployess() {
+        return employees;
+    }
+
+    public Manager returnManager() {
+        return this;
     }
 }
 

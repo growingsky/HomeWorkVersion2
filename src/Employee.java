@@ -7,10 +7,7 @@ public class Employee {
     private String position;
     private int salary;
 
-
-
-
-
+    private ArrayList<Task> tasks = new ArrayList<>();
 
     public void setName(String name) {
         this.name = name;
@@ -36,9 +33,9 @@ public class Employee {
         return salary;
     }
 
-
-
-
+    public void addTask(Task task) {
+        tasks.add(task);
+    }
 
     }
 
