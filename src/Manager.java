@@ -1,6 +1,7 @@
 import java.io.BufferedReader;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.ServiceConfigurationError;
 
 public class Manager {
 
@@ -8,7 +9,6 @@ public class Manager {
     private Employee employee;
     ArrayList<Employee> employees = new ArrayList<>();
     TaskMaster taskMaster;
-
 
 
     public void startInfo() {
@@ -19,7 +19,7 @@ public class Manager {
         System.out.println("If you want to find an employee press 4");
         System.out.println("For Taskmaster press 5");
         System.out.println("For exit press 0 ");
-
+        employeeDBpopulation();
         Scanner in = new Scanner(System.in);
         userChoice = in.nextInt();
         while (userChoice != 0) {
@@ -122,8 +122,31 @@ public class Manager {
         return employees;
     }
 
+    public String getAllEmployeesName() {
+        String name = "";
+        for (Employee i : getAllEmployess()) {
+            name = i.getName();
+        }
+        return name;
+    }
+
     public Manager returnManager() {
         return this;
+    }
+
+    public void employeeDBpopulation() {
+        Task task = new Task();
+        task.setTaskName("Hello World Task");
+        Employee employee = new Employee();
+        Employee employee1 = new Employee();
+        employee.setName("Stive Rojers");
+        employee1.setName("Stive Billington");
+        employees.add(employee);
+        employees.add(employee1);
+        employee.addTask(task);
+        employee1.addTask(task);
+
+
     }
 }
 
